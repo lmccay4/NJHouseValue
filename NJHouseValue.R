@@ -13,12 +13,9 @@ view(census)
 #B25077_001 median house value
 #B20002_001 median earnings past 12 months
 
-housingData <- get_acs(geography = "tract", 
-              variables = "B25077_001", 
-              state = "NJ", 
-              geometry = TRUE) %>%
-  drop_na(estimate) %>%
-  mutate(elev = estimate/100)
+housingData <- get_acs(geography = "tract", variables = "B25077_001", state = "NJ", geometry = TRUE) %>%
+mutate(elevation = estimate/100)
+
 housingData
 
 mapdeck(token = mapDeckToken, style = 'mapbox://styles/mapbox/dark-v9', pitch = 50, zoom = 15) %>%
@@ -26,5 +23,5 @@ mapdeck(token = mapDeckToken, style = 'mapbox://styles/mapbox/dark-v9', pitch = 
               fill_colour = "estimate", 
               tooltip = "estimate", 
               layer = "nj_housing", 
-              elevation = "elev",
+              elevation = "elevation",
               legend = TRUE)
